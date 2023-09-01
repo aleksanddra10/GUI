@@ -1,0 +1,10 @@
+C:\Users\HP\source\repos\filehidedriver\bin\Debug\filehidedriver.exe.config
+C:\Users\HP\source\repos\filehidedriver\bin\Debug\filehidedriver.exe
+C:\Users\HP\source\repos\filehidedriver\bin\Debug\filehidedriver.pdb
+C:\Users\HP\source\repos\filehidedriver\obj\Debug\filehidedriver.csproj.AssemblyReference.cache
+C:\Users\HP\source\repos\filehidedriver\obj\Debug\filehidedriver.Form1.resources
+C:\Users\HP\source\repos\filehidedriver\obj\Debug\filehidedriver.Properties.Resources.resources
+C:\Users\HP\source\repos\filehidedriver\obj\Debug\filehidedriver.csproj.GenerateResource.cache
+C:\Users\HP\source\repos\filehidedriver\obj\Debug\filehidedriver.csproj.CoreCompileInputs.cache
+C:\Users\HP\source\repos\filehidedriver\obj\Debug\filehidedriver.exe
+C:\Users\HP\source\repos\filehidedriver\obj\Debug\filehidedriver.pdb
