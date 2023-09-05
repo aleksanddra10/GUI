@@ -99,8 +99,107 @@ namespace filehidedriver
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+            try
+            {
+                if (e.RowIndex >= 0 && e.ColumnIndex == localHiddingRulesTable.Columns["Delete"].Index)
+                {
+                    // Ask the user for confirmation before deleting
+                    DialogResult result = MessageBox.Show("Are you sure you want to delete this row?", "Delete Confirmation", MessageBoxButtons.YesNo);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        // Remove the selected row from the DataGridView
+                        localHiddingRulesTable.Rows.RemoveAt(e.RowIndex);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions here
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            try
+            {
+                if (e.ColumnIndex == localHiddingRulesTable.Columns["Edit"].Index && e.RowIndex >= 0)
+                {
+                    // Get the selected row
+                    DataGridViewRow selectedRow = localHiddingRulesTable.Rows[e.RowIndex];
+
+                    // Check if the selected row and cell values are not null
+                    if (selectedRow != null && selectedRow.Cells["folder"].Value != null && selectedRow.Cells["Rule"].Value != null)
+                    {
+                        // Retrieve values of "Name" and "Rule" columns
+                        string name = selectedRow.Cells["folder"].Value.ToString();
+                        string rule = selectedRow.Cells["Rule"].Value.ToString();
+
+                        // Assuming you have TextBox controls for editing
+                        // You can display the values for editing in TextBoxes
+                        inputFolderName.Text = name;
+                        inputHiddingKeyword.Text = rule;
+
+                        // Optionally, disable the "Edit" button while editing
+                        if (localHiddingRulesTable.Columns.Contains("Edit"))
+                        {
+                            localHiddingRulesTable.Columns["Edit"].ReadOnly = true;
+                        }
+                        else
+                        {
+                            MessageBox.Show("The 'Edit' column was not found in the DataGridView.");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Selected row or cell values are null.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions here
+                MessageBox.Show("Error: " + ex.Message);
+            }
         }
+
+        // Add a button to save changes
+        private void btnSaveChanges_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Get the edited values from TextBoxes
+                string newName = inputFolderName.Text;
+                string newRule = inputHiddingKeyword.Text;
+
+                // Update the selected row in the DataGridView
+                if (localHiddingRulesTable.SelectedRows.Count > 0)
+                {
+                    DataGridViewRow selectedRow = localHiddingRulesTable.SelectedRows[0];
+
+                    // Check if the selected row and cell values are not null
+                    if (selectedRow != null && selectedRow.Cells["folder"].Value != null && selectedRow.Cells["Rule"].Value != null)
+                    {
+                        selectedRow.Cells["folder"].Value = newName;
+                        selectedRow.Cells["Rule"].Value = newRule;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Selected row or cell values are null.");
+                    }
+                }
+
+                // Optionally, re-enable the "Edit" button
+                localHiddingRulesTable.Columns["Edit"].ReadOnly = false;
+
+                // Clear the TextBoxes
+                inputFolderName.Clear();
+                inputHiddingKeyword.Clear();
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions here
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
 
         private void label9_Click_1(object sender, EventArgs e)
         {
@@ -114,8 +213,69 @@ namespace filehidedriver
 
         private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
-            
+            try
+            {
+                if (e.RowIndex >= 0)
+                {
+                    if (e.ColumnIndex == dataGridView1.Columns["EditRule"].Index)
+                    {
+                        // Edit button clicked, implement edit logic here
+                        DataGridViewRow selectedRow = dataGridView1.Rows[e.RowIndex];
+
+                        // Retrieve the "RulesName" value from the selected row
+                        string rulesName = selectedRow.Cells["RulesName"].Value.ToString();
+
+                        // Assuming you have TextBox controls for editing
+                        // Display the value in a TextBox for editing
+                        globalRule.Text = rulesName;
+                    }
+                    else if (e.ColumnIndex == dataGridView1.Columns["DeleteRule"].Index)
+                    {
+                        // Delete button clicked, ask for confirmation
+                        DialogResult result = MessageBox.Show("Are you sure you want to delete this row?", "Delete Confirmation", MessageBoxButtons.YesNo);
+
+                        if (result == DialogResult.Yes)
+                        {
+                            // Remove the selected row from the DataGridView
+                            dataGridView1.Rows.RemoveAt(e.RowIndex);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions here
+                MessageBox.Show("Error: " + ex.Message);
+            }
         }
+
+        // Add a button to save changes for editing
+        private void btnSaveChanges_Click1(object sender, EventArgs e)
+        {
+            try
+            {
+                // Get the edited value from the TextBox
+                string editedRulesName = globalRule.Text;
+
+                // Update the selected row in the DataGridView if necessary
+                if (dataGridView1.SelectedRows.Count > 0)
+                {
+                    DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
+
+                    // Update the "RulesName" column value in the selected row
+                    selectedRow.Cells["RulesName"].Value = editedRulesName;
+                }
+
+                // Clear the TextBox
+                globalRule.Clear();
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions here
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
 
         private void label8_Click(object sender, EventArgs e)
         {
